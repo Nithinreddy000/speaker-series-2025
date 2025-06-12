@@ -165,9 +165,9 @@ Correct Approach
 
 ## 🔗 Stay Connected
 
-- [LinkedIn – Yashasri Gudhe](https://www.linkedin.com/in/gyashasri341/)
+- [LinkedIn – Nithin Reddy](https://www.linkedin.com/in/nithin-reddy1/)
 - [Global AI secunderabad](https://www.meetup.com/global-ai-secunderabad/)
 - [Dot Net Learner House](https://www.meetup.com/dot-net-learners-house-hyderabad/)
-- Contact: yashasrigudhe@gmail.com
+- Contact: nithinreddy3630@gmail.com
 
 ---
