@@ -5,8 +5,8 @@
 📍 **Location:** Microsoft, Hyderabad   
 🔗 **Event Link:** [Register on Meetup](https://www.meetup.com/dot-net-learners-house-hyderabad/events/308109558/?eventOrigin=group_events_list)
 
-**Speaker:** Yashasri Gudhe  
-**Topic:** **Types of Prompting & Best Practices**  
+**Speaker:** Nithin Reddy  
+**Topic:** **Real-World Applications & Ethical Considerations**  
 🛠️ **Live Demo:** LangChain in Action!
 
 ![GAIS Banner | 100x100](../eventbanner.jpeg) 
@@ -34,11 +34,11 @@
 
 ---
 
- ### What are we doing today?
-1. Understanding Prompt Engineering
-2. What is prompting and why it matters in AI.
-3. How prompts guide reasoning and improve accuracy.
-4. Real-world use cases with simple examples.
+### What are we doing today?
+1. How Prompt Engineering is used in chatbots, content generation, and coding assistants.
+2. Ethical considerations – Bias, misinformation, and responsible AI usage.
+3. How developers can fine-tune prompts for better AI interactions.
+4. Hands on demo's
 
 ---
 
@@ -48,138 +48,105 @@
 
 ## 🧠 Session Overview
 
-Prompting is the art of crafting clear instructions for AI models using natural language.  
-It helps guide the model’s reasoning, improve accuracy, and ensure structured and relevant responses.
+Prompting is the art of crafting clear instructions for AI models using natural language.
+It helps guide the model's reasoning, improve accuracy, and ensure structured and relevant responses.
+
+So let's explore some real-world examples.
 
 ---
 
-## 🧰 Types of Prompting Techniques
-
-### 1. Zero-Shot Prompting
-
-> Ask the model to perform a task without giving any examples. Best for simple, common tasks.
-
-**Use Cases:**
-- Summarization  
-- Translation  
-- Direct question answering  
+## 🧰 Chatbots
 
 ```text
-Summarize the sentence: "Artificial intelligence is a rapidly growing field that focuses on building systems capable of performing tasks that typically require human intelligence."
+Poor Approach
+
+"Your flight is canceled."
+
+Correct approach:
+
+"You are a customer support assistant for an airline. A passenger's flight got canceled. Apologize, offer a refund or rebooking, and sign off professionally."
 ```
 
 ---
 
-### 2. Few-Shot Prompting
-
-> Provide 2–3 examples to show the model what kind of response is expected.
-
-**Use Cases:**
-- Text formatting
-- Pattern matching
-- Style transfer
+### Content Generation
 
 ```text
-Q: Convert 'data science' to PascalCase  
-A: DataScience  
-Q: Convert 'student login' to PascalCase  
-A: StudentLogin  
-Q: Convert 'account settings' to PascalCase  
-A:
+Poor Approach 
+
+"Write a comment for the water bottle function."
+
+Correct Approach
+
+"Write a 100-word docstring for a function that handles orders for an eco-friendly stainless steel bottle in a fitness e-commerce app."
 ```
 
 ---
 
-### 3. Chain-of-Thought Prompting
-
-> Guide the model to explain its reasoning step-by-step.
-
-**Use Cases:**
-- Math problems
-- Code analysis
-- Logical reasoning
+### Code Assistants
 
 ```text
-Q: There are 10 cookies. Alice eats 3, and Bob eats 2. How many are left?  
-Let's think step-by-step.
+Poor Approach
+
+"Explain this Python function to a beginner: def is_prime(n): ..."
+
+Correct Approach
+
+"Create a JavaScript function that validates email addresses."
 ```
 
 ---
 
-### 4. Prompt Chaining
-
-> Break down complex tasks into multiple connected prompts.
-
-**Use Cases:**
-- Task automation
-- Multi-step workflows
+### Ethical Considerations 
 
 ```text
-Step 1 Prompt:  
-Summarize the following GitHub issue: "The login button doesn't work on mobile devices running Safari."
+Poor Approach 
 
-Step 2 Prompt:  
-Write a professional email to the mobile dev team with the summary:  
-"The login button is broken on Safari mobile. Needs urgent fix."
+"Write a full authentication module."
+
+Correct Approach
+
+"Generate a basic user authentication module in Python without using any code from copyrighted or licensed repositories. Follow MIT-style examples only."
 ```
 
 ---
 
-### 5. Role Prompting
-
-> Assign a persona or role to influence tone or expertise level.
-
-**Use Cases:**
-- Professional reviews
-- Teaching or explaining concepts
-- Simulated interviews
+### Hallucinations 
 
 ```text
-You are a senior software architect.  
-Please review the following microservices design for performance and scalability issues.
-```
+Poor Approach
 
+"Write code to get all pending invoices from an API."
+
+Correct Approach
+
+"Assume you're working with a REST API with a 'GET /invoices' endpoint that returns invoice objects with a 'status' field. Write Python code using requests to fetch and list invoices where status == 'pending'. If unsure, return a note."
+```
+    
 ---
 
-### 6. Self-Consistency Prompting
+### Responsible Prompting
 
-> Run the same prompt multiple times to compare answers.
+Whether you're coding, writing a health report, or generating an essay —
+how you frame your prompt matters.
 
-**Use Cases:**
-- Brainstorming
-- Storytelling
-- Metaphor generation
+Use role-based prompts. For example:
+
+"You are a coding assistant."
+"You are a chef."
+"You are a certified doctor."
+
+It helps the AI generate more relevant and accurate content.
 
 ```text
-Q: Calculate 15% of 240
+Poor Approach 
 
-Path 1:  
-- 10% of 240 = 24  
-- 5% is half of 10% = 12  
-- Total: 24 + 12 = 36
+"Write Python code to calculate freelance tax in India."
 
-Path 2:  
-- Convert 15% to decimal: 0.15  
-- Multiply: 240 × 0.15 = 36
+Correct Approach
 
-Path 3:  
-- Break down into: (240 × 10/100) + (240 × 5/100)  
-- = 24 + 12  
-- = 36
+"You are a coding assistant, not a certified financial advisor. Generate Python code that calculates freelance income tax deductions in India, and include a disclaimer. Base the logic on India's latest 2024 IT rules and link to the official source."
 ```
-
----
-
-## ✅ Best Practices for Prompt Engineering
-
-- **Be clear & specific:** Avoid vague instructions.
-- **Add context/examples:** Improve quality with samples.
-- **Guide reasoning:** Use "Let's think step-by-step".
-- **Assign roles:** Set tone and expertise.
-- **Test multiple prompts:** Find what works best.
-- **Break down tasks:** Use chaining for complex flows.
-
----
 
 ## 🖼️ Resources for reference 
 1. [Prompt Engineering Guide – Covers fundamentals, techniques, and best practices.](https://www.promptingguide.ai/)
