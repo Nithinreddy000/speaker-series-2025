@@ -92,7 +92,23 @@ Poor Approach
 
 Correct Approach
 
-"Create a JavaScript function that validates email addresses."
+"You are a coding instructor teaching Python to beginners. Explain this prime number function step-by-step:
+
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+Please:
+1. Explain what the function does in simple terms
+2. Break down each line with beginner-friendly language
+3. Explain why we only check up to square root of n
+4. Give 2-3 examples with numbers (like 7, 8, 2)
+5. Mention common use cases for prime checking
+6. Avoid advanced mathematical jargon"
 ```
 
 ---
