@@ -57,13 +57,13 @@ So let's explore some real-world examples.
 
 ## 🧰 Chatbots
 
-```text
+
 Poor Approach
-
+```text
 "Bad: Your flight is canceled."
-
+```
 Correct approach:
-
+```
 "You are a customer support assistant for an airline. A passenger's flight got canceled. Apologize, offer a refund or rebooking, and sign off professionally."
 ```
 
@@ -87,13 +87,13 @@ Correct Approach
 
 ### Code Assistants
 
-```text
+
 Poor Approach
-
+```
 "Bad: Explain this Python function to a beginner: def is_prime(n): ..."
-
+```
 Correct Approach
-
+```
 "You are a coding instructor teaching Python to beginners. Explain this prime number function step-by-step:
 
 def is_prime(n):
@@ -117,13 +117,13 @@ Please:
 
 ### Ethical Considerations 
 
-```text
+
 Poor Approach 
-
+```
 "Bad: Write a full authentication module."
-
+```
 Correct Approach
-
+```
 "Generate a basic user authentication module in Python without using any code from copyrighted or licensed repositories. Follow MIT-style examples only."
 ```
 
@@ -131,13 +131,13 @@ Correct Approach
 
 ### Hallucinations 
 
-```text
+
 Poor Approach
-
+```
 "Bad: Write code to get all pending invoices from an API."
-
+```
 Correct Approach
-
+```
 "Assume you're working with a REST API with a 'GET /invoices' endpoint that returns invoice objects with a 'status' field. Write Python code using requests to fetch and list invoices where status == 'pending'. If unsure, return a note."
 ```
     
@@ -156,13 +156,13 @@ Use role-based prompts. For example:
 
 It helps the AI generate more relevant and accurate content.
 
-```text
+
 Poor Approach 
-
+```
 "Bad: Write Python code to calculate freelance tax in India."
-
+```
 Correct Approach
-
+```
 "You are a coding assistant, not a certified financial advisor. Generate Python code that calculates freelance income tax deductions in India, and include a disclaimer. Base the logic on India's latest 2024 IT rules and link to the official source."
 ```
 
