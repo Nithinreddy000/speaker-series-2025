@@ -60,7 +60,7 @@ So let's explore some real-world examples.
 ```text
 Poor Approach
 
-"Your flight is canceled."
+"Bad: Your flight is canceled."
 
 Correct approach:
 
