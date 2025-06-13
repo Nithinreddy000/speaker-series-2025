@@ -71,13 +71,15 @@ Correct approach:
 
 ### Content Generation
 
-```text
-Poor Approach 
 
+Poor Approach 
+```text
 "Bad: Write a comment for the water bottle function."
 
-Correct Approach
+```
 
+Correct Approach
+```
 "Write a 100-word docstring for a function that handles orders for an eco-friendly stainless steel bottle in a fitness e-commerce app."
 ```
 
