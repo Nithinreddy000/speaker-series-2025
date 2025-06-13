@@ -126,7 +126,7 @@ Poor Approach
 ```
 Correct Approach
 ```
-"Generate a basic user authentication module in Python without using any code from copyrighted or licensed repositories. Follow MIT-style examples only."
+"Generate a basic user authentication module in Python with Form Validation"
 ```
 
 ---
