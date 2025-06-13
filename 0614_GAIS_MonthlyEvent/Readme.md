@@ -74,7 +74,7 @@ Correct approach:
 ```text
 Poor Approach 
 
-"Write a comment for the water bottle function."
+"Bad: Write a comment for the water bottle function."
 
 Correct Approach
 
@@ -88,7 +88,7 @@ Correct Approach
 ```text
 Poor Approach
 
-"Explain this Python function to a beginner: def is_prime(n): ..."
+"Bad: Explain this Python function to a beginner: def is_prime(n): ..."
 
 Correct Approach
 
@@ -118,7 +118,7 @@ Please:
 ```text
 Poor Approach 
 
-"Write a full authentication module."
+"Bad: Write a full authentication module."
 
 Correct Approach
 
@@ -132,7 +132,7 @@ Correct Approach
 ```text
 Poor Approach
 
-"Write code to get all pending invoices from an API."
+"Bad: Write code to get all pending invoices from an API."
 
 Correct Approach
 
@@ -157,7 +157,7 @@ It helps the AI generate more relevant and accurate content.
 ```text
 Poor Approach 
 
-"Write Python code to calculate freelance tax in India."
+"Bad: Write Python code to calculate freelance tax in India."
 
 Correct Approach
 
