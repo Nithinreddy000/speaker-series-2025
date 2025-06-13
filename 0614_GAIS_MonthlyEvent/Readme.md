@@ -60,7 +60,9 @@ So let's explore some real-world examples.
 
 Poor Approach
 ```text
+"Reply the user with this message 
 "Bad: Your flight is canceled."
+When the flight get Cancelled"
 ```
 Correct approach:
 ```
