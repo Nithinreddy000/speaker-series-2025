@@ -43,7 +43,7 @@ In this session, we’ll explore how **embeddings** and **vector databases** ena
 You’ll learn how to:
 - Convert text into numerical representations (embeddings)
 - Store and search them efficiently in a vector database
-- Build a mini **semantic search engine** powered by AI
+- Build a mini **semantic search engine** powered by AI with Azure Ai Services
 
 We’ll also discuss how this technology powers **ChatGPT**, **Notion AI**, and **Copilot** behind the scenes.
 
@@ -54,7 +54,7 @@ We’ll also discuss how this technology powers **ChatGPT**, **Notion AI**, and 
 1. **Why keyword search fails** – the gap between text and meaning  
 2. **How embeddings work** – turning language into math  
 3. **What vector databases do** – finding meaning through similarity search  
-4. **Hands-on demo:** Build a semantic search using Python and ChromaDB  
+4. **Hands-on demo:** Build a semantic search using Azure Ai Services
 5. **Applications:** How enterprises use it for RAG, chatbots, and document search  
 
 ---
