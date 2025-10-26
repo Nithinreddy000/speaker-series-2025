@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "8f777e61-e1e6-499e-8647-be28768d35be",
+		"name": "Azure Semantic Search - Auto Embedding",
+		"description": "Automatically generates embeddings and uploads documents to Azure AI Search",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35373448"
+	},
+	"item": [
+		{
+			"name": "1. Create Index",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api-key",
+						"value": "{{search-api-key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"{{index-name}}\",\n  \"fields\": [\n    { \"name\": \"id\", \"type\": \"Edm.String\", \"key\": true, \"filterable\": false },\n    { \"name\": \"title\", \"type\": \"Edm.String\" },\n    { \"name\": \"content\", \"type\": \"Edm.String\" },\n    { \"name\": \"titleVector\", \"type\": \"Collection(Edm.Single)\", \"searchable\": true, \"vectorSearchDimensions\": 1536, \"vectorSearchProfile\": \"myHnswProfile\" },\n    { \"name\": \"contentVector\", \"type\": \"Collection(Edm.Single)\", \"searchable\": true, \"vectorSearchDimensions\": 1536, \"vectorSearchProfile\": \"myHnswProfile\" }\n  ],\n  \"vectorSearch\": {\n    \"profiles\": [\n      { \"name\": \"myHnswProfile\", \"algorithm\": \"hnsw\", \"parameters\": { \"m\": 4, \"efConstruction\": 400 } }\n    ]\n  }\n}"
+				},
+				"url": {
+					"raw": "https://{{search-service-name}}.search.windows.net/indexes/{{index-name}}?api-version={{search-api-version}}",
+					"protocol": "https",
+					"host": [
+						"{{search-service-name}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"{{index-name}}"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{search-api-version}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Generate Embedding (Kubernetes)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"pm.collectionVariables.set('kubernetes_embedding', JSON.stringify(response.data[0].embedding));",
+							"console.log('✅ Kubernetes embedding saved');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api-key",
+						"value": "{{openai-api-key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"input\": \"Kubernetes is an open-source system for automating the deployment, scaling, and management of containerized applications.\"\n}"
+				},
+				"url": {
+					"raw": "https://{{openai-service-name}}.openai.azure.com/openai/deployments/{{openai-deployment-name}}/embeddings?api-version={{openai-api-version}}",
+					"protocol": "https",
+					"host": [
+						"{{openai-service-name}}",
+						"openai",
+						"azure",
+						"com"
+					],
+					"path": [
+						"openai",
+						"deployments",
+						"{{openai-deployment-name}}",
+						"embeddings"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{openai-api-version}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Generate Embedding (Photosynthesis)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();",
+							"pm.collectionVariables.set('photosynthesis_embedding', JSON.stringify(response.data[0].embedding));",
+							"console.log('✅ Photosynthesis embedding saved');"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api-key",
+						"value": "{{openai-api-key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"input\": \"Photosynthesis is the process used by plants, algae, and some bacteria to convert light energy into chemical energy.\"\n}"
+				},
+				"url": {
+					"raw": "https://{{openai-service-name}}.openai.azure.com/openai/deployments/{{openai-deployment-name}}/embeddings?api-version={{openai-api-version}}",
+					"protocol": "https",
+					"host": [
+						"{{openai-service-name}}",
+						"openai",
+						"azure",
+						"com"
+					],
+					"path": [
+						"openai",
+						"deployments",
+						"{{openai-deployment-name}}",
+						"embeddings"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{openai-api-version}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Upload Docs with Embeddings",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api-key",
+						"value": "{{search-api-key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"value\": [\n    {\n      \"@search.action\": \"upload\",\n      \"id\": \"1\",\n      \"title\": \"Kubernetes\",\n      \"content\": \"Kubernetes is an open-source system for automating the deployment, scaling, and management of containerized applications.\",\n      \"contentVector\": {{kubernetes_embedding}}\n    },\n    {\n      \"@search.action\": \"upload\",\n      \"id\": \"2\",\n      \"title\": \"Photosynthesis\",\n      \"content\": \"Photosynthesis is the process used by plants, algae, and some bacteria to convert light energy into chemical energy.\",\n      \"contentVector\": {{photosynthesis_embedding}}\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "https://{{search-service-name}}.search.windows.net/indexes/{{index-name}}/docs/index?api-version={{search-api-version}}",
+					"protocol": "https",
+					"host": [
+						"{{search-service-name}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"{{index-name}}",
+						"docs",
+						"index"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{search-api-version}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Generate Query Embedding",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"let response = pm.response.json();",
+							"pm.collectionVariables.set('query_embedding', JSON.stringify(response.data[0].embedding));",
+							"console.log('✅ Query embedding saved');"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"let response = pm.response.json();",
+							"pm.collectionVariables.set('query_embedding', JSON.stringify(response.data[0].embedding));",
+							"console.log('✅ Query embedding saved');"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api-key",
+						"value": "{{openai-api-key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"input\": \"how do plants convert sunlight into energy\"\n}"
+				},
+				"url": {
+					"raw": "https://{{openai-service-name}}.openai.azure.com/openai/deployments/{{openai-deployment-name}}/embeddings?api-version={{openai-api-version}}",
+					"protocol": "https",
+					"host": [
+						"{{openai-service-name}}",
+						"openai",
+						"azure",
+						"com"
+					],
+					"path": [
+						"openai",
+						"deployments",
+						"{{openai-deployment-name}}",
+						"embeddings"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{openai-api-version}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Single Vector Search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "api-key",
+						"value": "{{search-api-key}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"vectorQueries\": [\n    {\n      \"vector\": {{query_embedding}},\n      \"fields\": \"contentVector\",\n      \"k\": 3\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "https://{{search-service-name}}.search.windows.net/indexes/{{index-name}}/docs/search?api-version={{search-api-version}}",
+					"protocol": "https",
+					"host": [
+						"{{search-service-name}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"{{index-name}}",
+						"docs",
+						"search"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "{{search-api-version}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "index-name",
+			"value": "my-vector-index"
+		},
+		{
+			"key": "search-service-name",
+			"value": "my-vector-search-demo"
+		},
+		{
+			"key": "search-api-version",
+			"value": "2023-07-01-Preview"
+		},
+		{
+			"key": "search-api-key",
+			"value": "YOUR_SEARCH_ADMIN_KEY"
+		},
+		{
+			"key": "openai-service-name",
+			"value": "nithinreddy"
+		},
+		{
+			"key": "openai-deployment-name",
+			"value": "embed-model"
+		},
+		{
+			"key": "openai-api-version",
+			"value": "2024-02-15-preview"
+		},
+		{
+			"key": "openai-api-key",
+			"value": "YOUR_OPENAI_KEY"
+		},
+		{
+			"key": "kubernetes_embedding",
+			"value": ""
+		},
+		{
+			"key": "photosynthesis_embedding",
+			"value": ""
+		},
+		{
+			"key": "query_embedding",
+			"value": ""
+		}
+	]
+}
