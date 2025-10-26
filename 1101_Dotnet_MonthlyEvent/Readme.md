@@ -188,7 +188,7 @@ you will see this page of info regarding for our open ai deployment. please keep
 Click on the below link to access and download the json file from my github.
 
 ---
-
+https://github.com/Nithinreddy000/speaker-series-2025/blob/63e4f8bc2ff0794800768e5330d52502e3d9ff43/1101_Dotnet_MonthlyEvent/postman_json_file/vector_search.json
 ---
 
 ## Step 19
