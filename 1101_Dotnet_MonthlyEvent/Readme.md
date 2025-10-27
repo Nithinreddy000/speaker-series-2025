@@ -218,6 +218,99 @@ In the parameter value column you will find the avalaible deployment regions if 
 
 ![| 100x100](./images/19.png)
 
+## Json for the Create index
+
+```json
+{
+    "name": "{{index-name}}",
+    "fields": [
+        {
+            "name": "id",
+            "type": "Edm.String",
+            "key": true,
+            "filterable": true
+        },
+        {
+            "name": "title",
+            "type": "Edm.String",
+            "searchable": true,
+            "retrievable": true
+        },
+        {
+            "name": "content",
+            "type": "Edm.String",
+            "searchable": true,
+            "retrievable": true
+        },
+        {
+            "name": "category",
+            "type": "Edm.String",
+            "filterable": true,
+            "searchable": true,
+            "retrievable": true
+        },
+        {
+            "name": "titleVector",
+            "type": "Collection(Edm.Single)",
+            "searchable": true,
+            "retrievable": true,
+            "dimensions": 1536,
+            "vectorSearchConfiguration": "my-vector-config"
+        },
+        {
+            "name": "contentVector",
+            "type": "Collection(Edm.Single)",
+            "searchable": true,
+            "retrievable": true,
+            "dimensions": 1536,
+            "vectorSearchConfiguration": "my-vector-config"
+        }
+    ],
+    "corsOptions": {
+        "allowedOrigins": [
+            "*"
+        ],
+        "maxAgeInSeconds": 60
+    },
+    "vectorSearch": {
+        "algorithmConfigurations": [
+            {
+                "name": "my-vector-config",
+                "kind": "hnsw",
+                "hnswParameters": {
+                    "m": 4,
+                    "efConstruction": 400,
+                    "efSearch": 500,
+                    "metric": "cosine"
+                }
+            }
+        ]
+    },
+    "semantic": {
+        "configurations": [
+            {
+                "name": "my-semantic-config",
+                "prioritizedFields": {
+                    "titleField": {
+                        "fieldName": "title"
+                    },
+                    "prioritizedContentFields": [
+                        {
+                            "fieldName": "content"
+                        }
+                    ],
+                    "prioritizedKeywordsFields": [
+                        {
+                            "fieldName": "category"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
+```
+
 ## Recap and Real-World Use Cases
 
 ## Q/A
