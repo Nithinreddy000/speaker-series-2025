@@ -311,6 +311,30 @@ In the parameter value column you will find the avalaible deployment regions if 
 }
 ```
 
+```
+let response = pm.response.json();
+if (response.data && response.data.length > 0) {
+    pm.collectionVariables.set("query_embedding", JSON.stringify(response.data[0].embedding));
+    console.log("✅ Query embedding saved successfully.");
+} else {
+    console.log("❌ Failed to save embedding — response invalid.");
+}
+```
+
+```
+{
+  "search": "*",
+  "vectorQueries": [
+    {
+      "kind": "vector",
+      "vector": {{query_embedding}},
+      "fields": "contentVector",
+      "k": 3
+    }
+  ]
+}
+```
+
 ## Recap and Real-World Use Cases
 
 ## Q/A
