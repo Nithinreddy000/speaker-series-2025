@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "8f777e61-e1e6-499e-8647-be28768d35be",
-		"name": "Azure Semantic Search - Auto Embedding",
+		"_postman_id": "962c4c4f-958a-447f-ad4d-00cbed1dcce5",
+		"name": "Azure Semantic Search - Auto Embedding Copy",
 		"description": "Automatically generates embeddings and uploads documents to Azure AI Search",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "35373448"
@@ -13,20 +13,25 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
 						"key": "api-key",
 						"value": "{{search-api-key}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"{{index-name}}\",\n  \"fields\": [\n    { \"name\": \"id\", \"type\": \"Edm.String\", \"key\": true, \"filterable\": false },\n    { \"name\": \"title\", \"type\": \"Edm.String\" },\n    { \"name\": \"content\", \"type\": \"Edm.String\" },\n    { \"name\": \"titleVector\", \"type\": \"Collection(Edm.Single)\", \"searchable\": true, \"vectorSearchDimensions\": 1536, \"vectorSearchProfile\": \"myHnswProfile\" },\n    { \"name\": \"contentVector\", \"type\": \"Collection(Edm.Single)\", \"searchable\": true, \"vectorSearchDimensions\": 1536, \"vectorSearchProfile\": \"myHnswProfile\" }\n  ],\n  \"vectorSearch\": {\n    \"profiles\": [\n      { \"name\": \"myHnswProfile\", \"algorithm\": \"hnsw\", \"parameters\": { \"m\": 4, \"efConstruction\": 400 } }\n    ]\n  }\n}"
+					"raw": "{\n    \"name\": \"{{index-name}}\",\n    \"fields\": [\n        {\n            \"name\": \"id\",\n            \"type\": \"Edm.String\",\n            \"key\": true,\n            \"filterable\": true\n        },\n        {\n            \"name\": \"title\",\n            \"type\": \"Edm.String\",\n            \"searchable\": true,\n            \"retrievable\": true\n        },\n        {\n            \"name\": \"content\",\n            \"type\": \"Edm.String\",\n            \"searchable\": true,\n            \"retrievable\": true\n        },\n        {\n            \"name\": \"category\",\n            \"type\": \"Edm.String\",\n            \"filterable\": true,\n            \"searchable\": true,\n            \"retrievable\": true\n        },\n        {\n            \"name\": \"titleVector\",\n            \"type\": \"Collection(Edm.Single)\",\n            \"searchable\": true,\n            \"retrievable\": true,\n            \"dimensions\": 1536,\n            \"vectorSearchConfiguration\": \"my-vector-config\"\n        },\n        {\n            \"name\": \"contentVector\",\n            \"type\": \"Collection(Edm.Single)\",\n            \"searchable\": true,\n            \"retrievable\": true,\n            \"dimensions\": 1536,\n            \"vectorSearchConfiguration\": \"my-vector-config\"\n        }\n    ],\n    \"corsOptions\": {\n        \"allowedOrigins\": [\n            \"*\"\n        ],\n        \"maxAgeInSeconds\": 60\n    },\n    \"vectorSearch\": {\n        \"algorithmConfigurations\": [\n            {\n                \"name\": \"my-vector-config\",\n                \"kind\": \"hnsw\",\n                \"hnswParameters\": {\n                    \"m\": 4,\n                    \"efConstruction\": 400,\n                    \"efSearch\": 500,\n                    \"metric\": \"cosine\"\n                }\n            }\n        ]\n    },\n    \"semantic\": {\n        \"configurations\": [\n            {\n                \"name\": \"my-semantic-config\",\n                \"prioritizedFields\": {\n                    \"titleField\": {\n                        \"fieldName\": \"title\"\n                    },\n                    \"prioritizedContentFields\": [\n                        {\n                            \"fieldName\": \"content\"\n                        }\n                    ],\n                    \"prioritizedKeywordsFields\": [\n                        {\n                            \"fieldName\": \"category\"\n                        }\n                    ]\n                }\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "https://{{search-service-name}}.search.windows.net/indexes/{{index-name}}?api-version={{search-api-version}}",
+					"raw": "https://{{search-service-name}}.search.windows.net/indexes/{{index-name}}?api-version=%7B%7Bsearch-api-version-index%7D%7D",
 					"protocol": "https",
 					"host": [
 						"{{search-service-name}}",
@@ -41,7 +46,7 @@
 					"query": [
 						{
 							"key": "api-version",
-							"value": "{{search-api-version}}"
+							"value": "{{search-api-version-index}}"
 						}
 					]
 				}
@@ -209,23 +214,25 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
 						"exec": [
 							"let response = pm.response.json();",
 							"pm.collectionVariables.set('query_embedding', JSON.stringify(response.data[0].embedding));",
 							"console.log('✅ Query embedding saved');"
-						]
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
 					}
 				},
 				{
 					"listen": "prerequest",
 					"script": {
-						"type": "text/javascript",
 						"exec": [
-							"let response = pm.response.json();",
-							"pm.collectionVariables.set('query_embedding', JSON.stringify(response.data[0].embedding));",
-							"console.log('✅ Query embedding saved');"
-						]
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
 					}
 				}
 			],
@@ -272,6 +279,51 @@
 		},
 		{
 			"name": "6. Single Vector Search",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Parse the query_embedding variable and inject it into the request body",
+							"let embeddingString = pm.collectionVariables.get('query_embedding');",
+							"",
+							"if (embeddingString) {",
+							"    try {",
+							"        // Parse the JSON string to get the actual array",
+							"        let embeddingArray = JSON.parse(embeddingString);",
+							"        ",
+							"        // Build the complete request body with the embedding array",
+							"        let requestBody = {",
+							"            \"search\": \"*\",",
+							"            \"vectorQueries\": [",
+							"                {",
+							"                    \"kind\": \"vector\",",
+							"                    \"vector\": embeddingArray,",
+							"                    \"fields\": \"contentVector\",",
+							"                    \"k\": 3",
+							"                }",
+							"            ]",
+							"        };",
+							"        ",
+							"        // Set the request body",
+							"        pm.request.body.raw = JSON.stringify(requestBody);",
+							"        ",
+							"        console.log('✅ Query embedding injected into request body');",
+							"        console.log('Embedding array length:', embeddingArray.length);",
+							"    } catch (e) {",
+							"        console.error('❌ Error parsing query_embedding:', e);",
+							"        console.error('Current value:', embeddingString);",
+							"    }",
+							"} else {",
+							"    console.error('⚠️ query_embedding variable is not set. Please run \"5. Generate Query Embedding\" first.');",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -345,23 +397,27 @@
 		},
 		{
 			"key": "search-service-name",
-			"value": "my-vector-search-demo"
+			"value": "Your Search Service Name"
 		},
 		{
-			"key": "search-api-version",
+			"key": "search-api-version-index",
 			"value": "2023-07-01-Preview"
 		},
 		{
+			"key": "search-api-version",
+			"value": "2023-10-01-Preview"
+		},
+		{
 			"key": "search-api-key",
-			"value": "YOUR_SEARCH_ADMIN_KEY"
+			"value": "Your Search Api key"
 		},
 		{
 			"key": "openai-service-name",
-			"value": "nithinreddy"
+			"value": "Your Open Ai Service Name"
 		},
 		{
 			"key": "openai-deployment-name",
-			"value": "embed-model"
+			"value": "text-embedding-3-small"
 		},
 		{
 			"key": "openai-api-version",
@@ -369,7 +425,7 @@
 		},
 		{
 			"key": "openai-api-key",
-			"value": "YOUR_OPENAI_KEY"
+			"value": "Your Open Ai Api key"
 		},
 		{
 			"key": "kubernetes_embedding",

@@ -91,7 +91,26 @@ https://azure.microsoft.com/free/students
 
 Click Start Free and create your free student account
 
+
 ## Step-2
+
+search for "Subscriptions" in search bar
+
+![| 100x100](./images/16.png)
+
+Click Azure for Students and inside settings click policies
+
+![| 100x100](./images/17.png)  
+
+Expand option Authoring and then click on Assignments to find the option " Allowed resource deployment regions"
+
+![| 100x100](./images/18.png)
+
+In the parameter value column you will find the avalaible deployment regions if facing issues use the allowed regions from policies while creating Ai search and Open ai Resources
+
+![| 100x100](./images/19.png)
+
+and then keep a note of Avaliable deployment Regions
 
 ![| 100x100](./images/2.png)
 
@@ -106,6 +125,8 @@ Click on Create Search Service
 ## Step-4
 
 Fill the Details from the Screenshot below and service name can be named as you prefer.
+
+Note : Make sure to change the region based on your available regions which you just now noted from the subsciptions tab
 
 ![| 100x100](./images/4.png)
 
@@ -145,7 +166,9 @@ Click create and then click on Azure Open ai
 
 ## Step 11
 
-Fill the basic config details as follows and instance name can be names as you prefer
+Fill the basic config details as follows and instance name can be names as you prefer.
+
+Note : Make sure to change the region based on your available regions which you just now noted from the subsciptions tab
 
 ![| 100x100](./images/10.png)
 
@@ -199,141 +222,6 @@ open postman and then click import-> files ->import the json file u just downloa
 ## Step 10
 
 Click on Each one of the Request and click send one by one.
-
-## Additional Steps if facing error with region validation
-
-search for "Subscriptions" in search bar
-
-![| 100x100](./images/16.png)
-
-Click Azure for Students and inside settings click policies
-
-![| 100x100](./images/17.png)  
-
-Expand option Authoring and then click on Assignments to find the option " Allowed resource deployment regions"
-
-![| 100x100](./images/18.png)
-
-In the parameter value column you will find the avalaible deployment regions if facing issues use the allowed regions from policies while creating Ai search and Open ai Resources
-
-![| 100x100](./images/19.png)
-
-## Json for the Create index
-
-```json
-{
-    "name": "{{index-name}}",
-    "fields": [
-        {
-            "name": "id",
-            "type": "Edm.String",
-            "key": true,
-            "filterable": true
-        },
-        {
-            "name": "title",
-            "type": "Edm.String",
-            "searchable": true,
-            "retrievable": true
-        },
-        {
-            "name": "content",
-            "type": "Edm.String",
-            "searchable": true,
-            "retrievable": true
-        },
-        {
-            "name": "category",
-            "type": "Edm.String",
-            "filterable": true,
-            "searchable": true,
-            "retrievable": true
-        },
-        {
-            "name": "titleVector",
-            "type": "Collection(Edm.Single)",
-            "searchable": true,
-            "retrievable": true,
-            "dimensions": 1536,
-            "vectorSearchConfiguration": "my-vector-config"
-        },
-        {
-            "name": "contentVector",
-            "type": "Collection(Edm.Single)",
-            "searchable": true,
-            "retrievable": true,
-            "dimensions": 1536,
-            "vectorSearchConfiguration": "my-vector-config"
-        }
-    ],
-    "corsOptions": {
-        "allowedOrigins": [
-            "*"
-        ],
-        "maxAgeInSeconds": 60
-    },
-    "vectorSearch": {
-        "algorithmConfigurations": [
-            {
-                "name": "my-vector-config",
-                "kind": "hnsw",
-                "hnswParameters": {
-                    "m": 4,
-                    "efConstruction": 400,
-                    "efSearch": 500,
-                    "metric": "cosine"
-                }
-            }
-        ]
-    },
-    "semantic": {
-        "configurations": [
-            {
-                "name": "my-semantic-config",
-                "prioritizedFields": {
-                    "titleField": {
-                        "fieldName": "title"
-                    },
-                    "prioritizedContentFields": [
-                        {
-                            "fieldName": "content"
-                        }
-                    ],
-                    "prioritizedKeywordsFields": [
-                        {
-                            "fieldName": "category"
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-}
-```
-
-```
-let response = pm.response.json();
-if (response.data && response.data.length > 0) {
-    pm.collectionVariables.set("query_embedding", JSON.stringify(response.data[0].embedding));
-    console.log("✅ Query embedding saved successfully.");
-} else {
-    console.log("❌ Failed to save embedding — response invalid.");
-}
-```
-
-```
-{
-  "search": "*",
-  "vectorQueries": [
-    {
-      "kind": "vector",
-      "vector": {{query_embedding}},
-      "fields": "contentVector",
-      "k": 3
-    }
-  ]
-}
-```
 
 ## Recap and Real-World Use Cases
 
