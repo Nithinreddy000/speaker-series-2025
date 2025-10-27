@@ -200,6 +200,24 @@ open postman and then click import-> files ->import the json file u just downloa
 
 Click on Each one of the Request and click send one by one.
 
+## Additional Steps if facing error with region validation
+
+search for "Subscriptions" in search bar
+
+![| 100x100](./images/16.png)
+
+Click Azure for Students and inside settings click policies
+
+![| 100x100](./images/17.png)  
+
+Expand option Authoring and then click on Assignments to find the option " Allowed resource deployment regions"
+
+![| 100x100](./images/18.png)
+
+In the parameter value column you will find the avalaible deployment regions if facing issues use the allowed regions from policies while creating Ai search and Open ai Resources
+
+![| 100x100](./images/19.png)
+
 ## Recap and Real-World Use Cases
 
 ## Q/A
