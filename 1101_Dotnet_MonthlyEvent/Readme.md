@@ -112,9 +112,9 @@ In the parameter value column you will find the avalaible deployment regions if 
 
 and then keep a note of Avaliable deployment Regions
 
-![| 100x100](./images/2.png)
-
 Search for "Ai Search" and open it.
+
+![| 100x100](./images/2.png)
 
 ## Step-3
 
